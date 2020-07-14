@@ -70,8 +70,6 @@ static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont,
 static const char *netmenucmd[] = { "networkmanager_dmenu", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "st", NULL };
 static const char *filemancmd[] = { "st", "-e", "ranger", NULL };
-static const char *brightnessupcmd[] = { "sudo", "/usr/bin/brightnessctl", "set", "+5%", NULL };
-static const char *brightnessdowncmd[] = { "sudo", "/usr/bin/brightnessctl", "set", "5%-", NULL };
 static const char *raisevolumecmd[] = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "+5%", NULL };
 static const char *lowervolumecmd[] = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "-5%", NULL };
 static const char *mutevolumecmd[] = { "pactl", "set-sink-mute", "@DEFAULT_SINK@", "toggle", NULL };
@@ -124,8 +122,6 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,	            XK_q,      quit,           {0} },
-	{ 0,		  XF86XK_MonBrightnessUp,	   spawn,          {.v = brightnessupcmd } },
-	{ 0,		XF86XK_MonBrightnessDown,	   spawn,          {.v = brightnessdowncmd } },
 	{ 0,		 XF86XK_AudioRaiseVolume,      spawn,		   {.v = raisevolumecmd } },
 	{ 0,		 XF86XK_AudioLowerVolume,	   spawn,          {.v = lowervolumecmd } },
 	{ 0,				XF86XK_AudioMute,	   spawn,          {.v = mutevolumecmd } },
