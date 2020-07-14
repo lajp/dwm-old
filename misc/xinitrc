@@ -1,0 +1,10 @@
+# Autostart section
+slstatus & 
+setxkbmap -layout fi,us &
+setxkbmap -option 'grp:alt_shift_toggle' &
+compton --config ~/.config/compton/compton.conf &
+hsetroot -solid "#000000" &
+synclient VertScrollDelta=-200 VertTwoFingerScroll=1 AccelFactor=0.025 TapButton1=1 TapButton2=1 TapButton3=1 &
+auto-rotate_screen.sh eDP-1 &
+
+exec dwm
