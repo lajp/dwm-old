@@ -1,10 +1,10 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx  = 1;        /* border pixel of windows */
+static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
-static const int topbar             = 1;        /* 0 means bottom bar */
+static const int topbar             = 0;        /* 0 means bottom bar */
 static const char *fonts[]          = { "monospace:size=10" };
 static const char dmenufont[]       = "monospace:size=10";
 static const char col_gray1[]       = "#222222";
@@ -28,11 +28,19 @@ static const Rule rules[] = {
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
 	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+	{ "Firefox",  NULL,       NULL,       1 << 3,       0,           -1 },
+	{ "firefox",  NULL,       NULL,       1 << 3,       0,           -1 },
+	{ "spotify",  NULL,       NULL,       1 << 2,       0,           -1 },
+	{ "Spotify",  NULL,       NULL,       1 << 2,       0,           -1 },
+	{ "discord",  NULL,       NULL,       1 << 1,       0,           -1 },
+	{ "Lutris",   NULL,       NULL,       1 << 4,       0,           -1 },
+	{ "Steam",    NULL,       NULL,       1 << 4,       0,           -1 },
+	{  NULL,	  NULL, "Steam - News",   0,         1,           -1 },
+	{  NULL,    "origin.exe", NULL,       0,			1,	         -1 },
 };
 
 /* layout(s) */
-static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
+static const float mfact     = 0.6; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
 
@@ -42,11 +50,11 @@ static const Layout layouts[] = {
 	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
 	{ "|M|",      centeredmaster },
-	{ ">M>",      centeredfloatingmaster },
 };
 
 /* key definitions */
-#define MODKEY Mod1Mask
+#include <X11/XF86keysym.h>
+#define MODKEY Mod4Mask
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
@@ -59,28 +67,42 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+static const char *netmenucmd[] = { "networkmanager_dmenu", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "st", NULL };
+static const char *filemancmd[] = { "st", "-e", "ranger", NULL };
+static const char *brightnessupcmd[] = { "sudo", "/usr/bin/brightnessctl", "set", "+5%", NULL };
+static const char *brightnessdowncmd[] = { "sudo", "/usr/bin/brightnessctl", "set", "5%-", NULL };
+static const char *raisevolumecmd[] = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "+5%", NULL };
+static const char *lowervolumecmd[] = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "-5%", NULL };
+static const char *mutevolumecmd[] = { "pactl", "set-sink-mute", "@DEFAULT_SINK@", "toggle", NULL };
+static const char *nextcmd[] = { "playerctl", "next", "&&", "tizonia-ctl.sh", "next", NULL };
+static const char *prevcmd[] = { "playerctl", "prev", "&&", "tizonia-ctl.sh", "prev", NULL };
+static const char *playpausecmd[] = { "playerctl", "play-pause", "&&", "tizonia-ctl.sh", "pp", NULL };
+static const char *webcmd[] = { "firefox", NULL };
+
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
-	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY|ShiftMask,				XK_d,	   spawn,          {.v = netmenucmd } },
+	{ MODKEY,                       XK_d,      spawn,          {.v = dmenucmd } },
+	{ MODKEY,		                XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY,						XK_e,	   spawn,          {.v = filemancmd } },
+	{ MODKEY,						XK_w,	   spawn,          {.v = webcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
-	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
-	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
+	{ MODKEY|ShiftMask,				XK_h,      incnmaster,     {.i = +1 } },
+	{ MODKEY|ShiftMask,				XK_l,      incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
-	{ MODKEY,                       XK_Return, zoom,           {0} },
+	{ MODKEY,                       XK_space,  zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
-	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
-	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
-	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
-	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
-	{ MODKEY,                       XK_u,      setlayout,      {.v = &layouts[3]} },
-	{ MODKEY,                       XK_o,      setlayout,      {.v = &layouts[4]} },
-	{ MODKEY,                       XK_space,  setlayout,      {0} },
+	{ MODKEY,						XK_q,      killclient,     {0} },
+	{ MODKEY,                       XK_s,      setlayout,      {.v = &layouts[0]} }, // default
+	{ MODKEY,                       XK_y,      setlayout,      {.v = &layouts[1]} }, // floating
+	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[2]} }, // fullscreen stack
+	{ MODKEY,                       XK_c,      setlayout,      {.v = &layouts[3]} }, // centered master
+	//{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
@@ -97,7 +119,15 @@ static Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
-	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+	{ MODKEY|ShiftMask,	            XK_q,      quit,           {0} },
+	{ 0,		  XF86XK_MonBrightnessUp,	   spawn,          {.v = brightnessupcmd } },
+	{ 0,		XF86XK_MonBrightnessDown,	   spawn,          {.v = brightnessdowncmd } },
+	{ 0,		 XF86XK_AudioRaiseVolume,      spawn,		   {.v = raisevolumecmd } },
+	{ 0,		 XF86XK_AudioLowerVolume,	   spawn,          {.v = lowervolumecmd } },
+	{ 0,				XF86XK_AudioMute,	   spawn,          {.v = mutevolumecmd } },
+	{ 0,				XF86XK_AudioNext,	   spawn,          {.v = nextcmd } },
+	{ 0,				XF86XK_AudioPrev,	   spawn,          {.v = prevcmd } },
+	{ 0,				 XF86XK_AudioPlay,	   spawn,          {.v = playpausecmd } },
 };
 
 /* button definitions */
