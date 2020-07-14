@@ -79,6 +79,10 @@ static const char *nextcmd[] = { "playerctl", "next", "&&", "tizonia-ctl.sh", "n
 static const char *prevcmd[] = { "playerctl", "prev", "&&", "tizonia-ctl.sh", "prev", NULL };
 static const char *playpausecmd[] = { "playerctl", "play-pause", "&&", "tizonia-ctl.sh", "pp", NULL };
 static const char *webcmd[] = { "firefox", NULL };
+static const char *screenshotcmd[] = { "gnome-screenshot", NULL };
+static const char *screenshotclipcmd[] = { "gnome-screenshot", "-c", NULL };
+static const char *areasscmd[] = { "gnome-screenshot", "-a", NULL };
+static const char *areassclipcmd[] = { "gnome-screenshot", "-a", "-c", NULL };
 
 
 static Key keys[] = {
@@ -106,10 +110,10 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
-	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
-	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
-	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
+	{ MODKEY,                       XK_n,	   focusmon,       {.i = -1 } },
+	{ MODKEY,                       XK_m,	   focusmon,       {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_n,	   tagmon,         {.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_m,	   tagmon,         {.i = +1 } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
@@ -127,7 +131,11 @@ static Key keys[] = {
 	{ 0,				XF86XK_AudioMute,	   spawn,          {.v = mutevolumecmd } },
 	{ 0,				XF86XK_AudioNext,	   spawn,          {.v = nextcmd } },
 	{ 0,				XF86XK_AudioPrev,	   spawn,          {.v = prevcmd } },
-	{ 0,				 XF86XK_AudioPlay,	   spawn,          {.v = playpausecmd } },
+	{ 0,				XF86XK_AudioPlay,	   spawn,          {.v = playpausecmd } },
+	{ 0,						XK_Print,	   spawn,		   {.v = screenshotcmd } },
+	{ MODKEY,					XK_Print,	   spawn,		   {.v = areasscmd } },
+	{ ShiftMask,				XK_Print,	   spawn,		   {.v = screenshotclipcmd } },
+	{ MODKEY|ShiftMask,			XK_Print,	   spawn,		   {.v = areassclipcmd } },
 };
 
 /* button definitions */
