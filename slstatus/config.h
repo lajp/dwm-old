@@ -63,8 +63,6 @@ static const char unknown_str[] = "n/a";
  */
 static const struct arg args[] = {
 	/* function format          argument */
-	{ ram_used, "|RAM: %s/", NULL },
-	{ ram_total,"%s", NULL },
 	{ vol_perc, "|♪ %s%%", "/dev/mixer" },
 	{ run_command, "|☀ %s", "getBrightness.sh" },
 	{ keymap, "|%s", NULL },
@@ -72,10 +70,12 @@ static const struct arg args[] = {
 	{ ipv4, "|%s", "wlo1" },
 	{ wifi_essid, "(%s", "wlo1" },
 	{ wifi_perc, " at %s%%)", "wlo1" },
-	{ battery_perc, "|🔋 %s%%","BAT0" },
-	{ disk_used, "|%s/", "/" },
+	{ disk_used, "|🖸%s/", "/" },
 	{ disk_total,"%s", "/" },
+	{ ram_used, "|RAM: %s/", NULL },
+	{ ram_total,"%s", NULL },
+	{ battery_perc, "|🔋 %s%%","BAT0" },
 	{ cpu_perc, "|CPU: %s%%", NULL },
 	{ temp, ", %s°C", "/sys/class/thermal/thermal_zone0/temp" },
-	{ datetime, "|%s ", "%d-%m-%Y %T" },
+	{ datetime, "|%s ", "%d-%m-%Y %T|" },
 };
