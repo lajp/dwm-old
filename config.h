@@ -83,10 +83,10 @@ static const char *nextcmd[] = { "playerctl", "next", ";", "tizonia-ctl.sh", "ne
 static const char *prevcmd[] = { "playerctl", "prev", ";", "tizonia-ctl.sh", "prev", NULL };
 static const char *playpausecmd[] = { "playerctl", "play-pause", ";", "tizonia-ctl.sh", "pp", NULL };
 static const char *webcmd[] = { "firefox", NULL };
-static const char *screenshotcmd[] = { "gnome-screenshot", NULL };
-static const char *screenshotclipcmd[] = { "gnome-screenshot", "-c", NULL };
-static const char *areasscmd[] = { "gnome-screenshot", "-a", NULL };
-static const char *areassclipcmd[] = { "gnome-screenshot", "-a", "-c", NULL };
+static const char *screenshotcmd[] = { "maim", "~/Pictures/$(date +%s).png", NULL };
+static const char *screenshotclipcmd[] = { "maim", "|", "xclip", "-selection", "clipboard", "-t", "image/png", NULL };
+static const char *areasscmd[] = { "maim", "-s", "~/Pictures/$(date +%s).png", NULL };
+static const char *areassclipcmd[] = { "maim", "-s", "|", "xclip", "-selection", "clipboard", "-t" "image/png", NULL };
 
 
 static Key keys[] = {
