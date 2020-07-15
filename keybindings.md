@@ -3,6 +3,7 @@
 ## Launching applications
 * SUPER+d = dmenu
 * SUPER+Shift+d = networkmanager_dmenu
+* SUPER+a = dmenu_pass
 * SUPER+Return = st
 * SUPER+e = ranger
 * SUPER+w = firefox
