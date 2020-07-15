@@ -1,5 +1,6 @@
 install: all
 	cp -f tizonia-ctl.sh /usr/local/bin/
+	cp -f dmenu_pass /usr/local/bin/
 	cp /home/lajp/.xinitrc /home/lajp/.xinitrc.old
 	cp -f xinitrc /home/lajp/.xinitrc
 
