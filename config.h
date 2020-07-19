@@ -32,7 +32,7 @@ static const Rule rules[] = {
 	{ "firefox",  NULL,       NULL,       1 << 3,       0,           -1 },
 	{ "spotify",  NULL,       NULL,       1 << 2,       0,           -1 },
 	{ "Spotify",  NULL,       NULL,       1 << 2,       0,           -1 },
-	{ "discord",  NULL,       NULL,       1 << 1,       0,           +1 },
+	{ "discord",  NULL,       NULL,       1 << 1,       0,           -1 },
 	{ "Lutris",   NULL,       NULL,       1 << 4,       0,           -1 },
 	{ "Steam",    NULL,       NULL,       1 << 4,       0,           -1 },
 	{  NULL,	  NULL, "Steam - News",   0,         1,           -1 },
