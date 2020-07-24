@@ -30,6 +30,7 @@ static const Rule rules[] = {
 	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
 	{ "Firefox",  NULL,       NULL,       1 << 3,       0,           -1 },
 	{ "firefox",  NULL,       NULL,       1 << 3,       0,           -1 },
+	{ "Brave-browser",NULL,   NULL,       1 << 3,       0,           -1 },
 	{ "spotify",  NULL,       NULL,       1 << 2,       0,           -1 },
 	{ "Spotify",  NULL,       NULL,       1 << 2,       0,           -1 },
 	{ "discord",  NULL,       NULL,       1 << 1,       0,           -1 },
@@ -82,7 +83,7 @@ static const char *mutevolumecmd[] = { "pactl", "set-sink-mute", "@DEFAULT_SINK@
 static const char *nextcmd[] = { "playerctl", "next", ";", "tizonia-ctl.sh", "next", NULL };
 static const char *prevcmd[] = { "playerctl", "prev", ";", "tizonia-ctl.sh", "prev", NULL };
 static const char *playpausecmd[] = { "playerctl", "play-pause", ";", "tizonia-ctl.sh", "pp", NULL };
-static const char *webcmd[] = { "firefox", NULL };
+static const char *webcmd[] = { "brave-browser", NULL };
 static const char *screenshotcmd[] = { "maim", "~/Pictures/$(date +%s).png", NULL };
 static const char *screenshotclipcmd[] = { "maim", "|", "xclip", "-selection", "clipboard", "-t", "image/png", NULL };
 static const char *areasscmd[] = { "maim", "-s", "~/Pictures/$(date +%s).png", NULL };
