@@ -88,6 +88,7 @@ static const char *screenshotcmd[] = { "maim", "~/Pictures/$(date +%s).png", NUL
 static const char *screenshotclipcmd[] = { "maim", "|", "xclip", "-selection", "clipboard", "-t", "image/png", NULL };
 static const char *areasscmd[] = { "maim", "-s", "~/Pictures/$(date +%s).png", NULL };
 static const char *areassclipcmd[] = { "maim", "-s", "|", "xclip", "-selection", "clipboard", "-t" "image/png", NULL };
+static const char *playclipboardcmd[] = { "playclipboard.sh", NULL };
 
 
 static Key keys[] = {
@@ -143,6 +144,7 @@ static Key keys[] = {
 	{ MODKEY,					XK_Print,	   spawn,		   {.v = areasscmd } },
 	{ ShiftMask,				XK_Print,	   spawn,		   {.v = screenshotclipcmd } },
 	{ MODKEY|ShiftMask,			XK_Print,	   spawn,		   {.v = areassclipcmd } },
+	{ MODKEY|ShiftMask,			    XK_w,	   spawn,		   {.v = playclipboardcmd } },
 };
 
 /* button definitions */
