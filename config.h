@@ -69,6 +69,9 @@ static const Layout layouts[] = {
 
 /* commands */
 
+static const char *shutdowncmd[] = { "sudo", "shutdown", "now", NULL };
+static const char *rebootcmd[] = { "sudo", "reboot", "now", NULL };
+
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *netmenucmd[] = { "networkmanager_dmenu", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
@@ -90,6 +93,9 @@ static const char *areassclipcmd[] = { "gnome-screenshot", "-a", "-c", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
+	{ MODKEY|ShiftMask,				XK_c,	   spawn,          {.v = shutdowncmd } },
+	{ MODKEY|ShiftMask,				XK_r,	   spawn,          {.v = rebootcmd } },
+
 	{ MODKEY|ShiftMask,				XK_d,	   spawn,          {.v = netmenucmd } },
 	{ MODKEY,                       XK_d,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_a,      spawn,          {.v = dmenupasscmd } },
