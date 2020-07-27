@@ -75,6 +75,7 @@ static const char *netmenucmd[] = { "networkmanager_dmenu", "-m", dmenumon, "-fn
 static const char *dmenupasscmd[] = { "dmenu_pass", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "st", NULL };
 static const char *filemancmd[] = { "st", "-e", "ranger", NULL };
+static const char *rssreadcmd[] = { "st", "-e", "newsboat", NULL };
 static const char *brightnessupcmd[] = { "sudo", "/usr/bin/brightnessctl", "set", "+5%", NULL };
 static const char *brightnessdowncmd[] = { "sudo", "/usr/bin/brightnessctl", "set", "5%-", NULL };
 static const char *raisevolumecmd[] = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "+5%", NULL };
@@ -98,6 +99,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_a,      spawn,          {.v = dmenupasscmd } },
 	{ MODKEY,		                XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,						XK_e,	   spawn,          {.v = filemancmd } },
+	{ MODKEY|ShiftMask,				XK_e,	   spawn,          {.v = rssreadcmd } },
 	{ MODKEY,						XK_w,	   spawn,          {.v = webcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
